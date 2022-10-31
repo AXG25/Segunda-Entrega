@@ -1,5 +1,7 @@
 let nombreUsuario = prompt("¿Cuál es tu nombre?").toLowerCase();
 
+
+// funcion que verifica si el nombre no tiene simbolos o numeros, que no se un espacio en blanco y que al menos contenga tres letras
 const verficadorDeNombres = () => {
   while (nombreUsuario.match(/[^a-z]/g)) {
     nombreUsuario = prompt(
@@ -21,13 +23,14 @@ const verficadorDeNombres = () => {
 
   alert("Hola " + nombreUsuario + " Bienvenido a Posdata");
 };
-
 verficadorDeNombres();
 
 alert("Vamos a conocernos un poco mas");
 
 let edadUsuario = prompt(nombreUsuario + " ¿Cuál es tu edad?");
 
+
+// funcion que verifica si la edad es un numero, que no sea un espacio en blanco y que sea mayor a 18
 const verificadorDeEdad = () => {
   while (isNaN(edadUsuario)) {
     edadUsuario = prompt("Por favor ingrese un numero");
@@ -48,13 +51,14 @@ const verificadorDeEdad = () => {
     throw new Error("El usuario es menor de edad");
   }
 };
-
 verificadorDeEdad();
 
 alert(
   `Estos son las tarjeta que tenemos disponibles ${nombreUsuario}. Por favor ingresa el numero de la tarjeta que desea comprar`
 );
 
+
+// creamos un arreglo de objetos con los productos que queremos vender
 let catalogo = [
   {
     nombre: "Tarjeta de regalo para cumpleaños",
@@ -86,8 +90,12 @@ let catalogo = [
   },
 ];
 
+
+// creamos un arreglo vacio donde se van a ir agregando los productos que el usuario elija 'carrito'
 let carrito = [];
 
+
+// funcion que recorre el catalogo para imprimirlo en un prompt
 const imprimirCatalogo = () => {
   let catalogoString = "";
   for (let i = 0; i < catalogo.length; i++) {
@@ -95,9 +103,10 @@ const imprimirCatalogo = () => {
   }
   return catalogoString;
 };
-
 let productoElegido = prompt(imprimirCatalogo());
 
+
+// funcion que verifica si el producto elegido es un numero, que no sea un espacio en blanco y que sea un numero valido
 const verificadorDeProducto = () => {
   while (isNaN(productoElegido)) {
     alert("Por favor ingresa un numero");
@@ -116,20 +125,16 @@ const verificadorDeProducto = () => {
     productoElegido = prompt(imprimirCatalogo());
   }
 };
-
 verificadorDeProducto();
 
+//añadimos productos al carrito 
 carrito.push(catalogo[productoElegido]);
 console.log(carrito);
 
-alert(
-  `${nombreUsuario} has elegido ${catalogo[productoElegido].nombre} por $${catalogo[productoElegido].precio}`
-);
+alert(`${nombreUsuario} has elegido ${catalogo[productoElegido].nombre} por $${catalogo[productoElegido].precio}`);
 
-let compraOtroProducto = prompt(
-  "¿Deseas comprar otro producto? Responde si o no"
-);
-
+let compraOtroProducto = prompt("¿Deseas comprar otro producto? Responde si o no");
+//funcion que verifica si la respuesta es si o no
 const verificadorDeRespuesta = () => {
   while (compraOtroProducto != "si" && compraOtroProducto != "no") {
     compraOtroProducto = prompt(
@@ -142,25 +147,22 @@ const verificadorDeRespuesta = () => {
     );
   }
 };
-
 verificadorDeRespuesta();
 
+
+//funcion que permite volver a mostrar el catalogo y elegir otro producto y en caso de que no se quiera comprar mas nada se muestra el carrito y el valor total de la compra
 const comprarOtroProducto = () => {
   if (compraOtroProducto == "si") {
     productoElegido = prompt(imprimirCatalogo());
     verificadorDeProducto();
     carrito.push(catalogo[productoElegido]);
     console.log(carrito);
-    alert(
-      `${nombreUsuario} has elegido ${catalogo[productoElegido].nombre} por $${catalogo[productoElegido].precio}`
-    );
-    compraOtroProducto = prompt(
-      "¿Deseas comprar otro producto? Responda si o no"
-    );
+    alert(`${nombreUsuario} has elegido ${catalogo[productoElegido].nombre} por $${catalogo[productoElegido].precio}`);
+    compraOtroProducto = prompt("¿Deseas comprar otro producto? Responda si o no");
     verificadorDeRespuesta();
     comprarOtroProducto();
-  } else {
-    const mostrarCarrito = () => {
+  } else { 
+    const mostrarCarrito = () => { //funcion que muestra lo que hay en el carrito
       let texto = `${nombreUsuario} usted ha comprado: \n`;
       carrito.forEach((producto) => {
         texto += `${producto.nombre} - $${producto.precio} \n`;
@@ -172,5 +174,5 @@ const comprarOtroProducto = () => {
     alert(mostrarCarrito());
   }
 };
-
 comprarOtroProducto();
+
